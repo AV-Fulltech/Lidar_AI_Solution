@@ -1,0 +1,167 @@
+==========================================================
+||  MODEL: resnet50int8
+||  PRECISION: int8
+||  DATA: example-data
+||  USEPython: OFF
+||
+||  TensorRT: /usr/local/cuda/lib64
+||  CUDA: /usr/local/cuda
+||  CUDNN: /usr/local/cuda/lib64
+==========================================================
+Try to get the current device SM
+Current CUDA SM: 86
+Configuration done!
+Building the model: model/resnet50int8/build/camera.backbone.plan, this will take several minutes. Wait a moment 🤗🤗🤗~.
+Building the model: model/resnet50int8/build/fuser.plan, this will take several minutes. Wait a moment 🤗🤗🤗~.
+Building the model: model/resnet50int8/build/camera.vtransform.plan, this will take several minutes. Wait a moment 🤗🤗🤗~.
+Building the model: model/resnet50int8/build/head.bbox.plan, this will take several minutes. Wait a moment 🤗🤗🤗~.
+root@gb-Lenovo-Legion-R9000K2021H:/home/gb/Documents/Lidar_AI_Solution/CUDA-BEVFusion# bash tool/build_trt_engine.sh 
+==========================================================
+||  MODEL: resnet50int8
+||  PRECISION: int8
+||  DATA: example-data
+||  USEPython: OFF
+||
+||  TensorRT: /usr/local/cuda/lib64
+||  CUDA: /usr/local/cuda
+||  CUDNN: /usr/local/cuda/lib64
+==========================================================
+Try to get the current device SM
+Current CUDA SM: 86
+Configuration done!
+Model model/resnet50int8/build/camera.backbone.plan already build 🙋🙋🙋.
+Model model/resnet50int8/build/fuser.plan already build 🙋🙋🙋.
+Model model/resnet50int8/build/camera.vtransform.plan already build 🙋🙋🙋.
+Model model/resnet50int8/build/head.bbox.plan already build 🙋🙋🙋.
+root@gb-Lenovo-Legion-R9000K2021H:/home/gb/Documents/Lidar_AI_Solution/CUDA-BEVFusion# bash tool/run.sh 
+==========================================================
+||  MODEL: resnet50int8
+||  PRECISION: int8
+||  DATA: example-data
+||  USEPython: OFF
+||
+||  TensorRT: /usr/local/cuda/lib64
+||  CUDA: /usr/local/cuda
+||  CUDNN: /usr/local/cuda/lib64
+==========================================================
+Try to get the current device SM
+Current CUDA SM: 86
+Configuration done!
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/gb/Documents/Lidar_AI_Solution/CUDA-BEVFusion/build
+Consolidate compiler generated dependencies of target bevfusion_core
+[ 63%] Built target bevfusion_core
+Consolidate compiler generated dependencies of target bevfusion
+[100%] Built target bevfusion
+Create by resnet50int8, int8
+------------------------------------------------------
+Camerea Backbone 🌱 is Static Shape model
+Inputs: 2
+	0.img : {1 x 6 x 3 x 256 x 704} [Float16]
+	1.depth : {1 x 6 x 1 x 256 x 704} [Float16]
+Outputs: 2
+	0.camera_depth_weights : {6 x 118 x 32 x 88} [Float16]
+	1.camera_feature : {6 x 32 x 88 x 80} [Float16]
+------------------------------------------------------
+------------------------------------------------------
+Camerea VTransform 🌱 is Static Shape model
+Inputs: 1
+	0.feat_in : {1 x 80 x 360 x 360} [Float16]
+Outputs: 1
+	0.feat_out : {1 x 80 x 180 x 180} [Float16]
+------------------------------------------------------
+------------------------------------------------------
+Transfusion 🌱 is Static Shape model
+Inputs: 2
+	0.camera : {1 x 80 x 180 x 180} [Float16]
+	1.lidar : {1 x 256 x 180 x 180} [Float16]
+Outputs: 1
+	0.middle : {1 x 512 x 180 x 180} [Float16]
+------------------------------------------------------
+------------------------------------------------------
+BBox 🌱 is Static Shape model
+Inputs: 1
+	0.middle : {1 x 512 x 180 x 180} [Float16]
+Outputs: 6
+	0.reg : {1 x 2 x 200} [Float16]
+	1.height : {1 x 1 x 200} [Float16]
+	2.dim : {1 x 3 x 200} [Float16]
+	3.rot : {1 x 2 x 200} [Float16]
+	4.vel : {1 x 2 x 200} [Float16]
+	5.score : {1 x 10 x 200} [Float16]
+------------------------------------------------------
+==================BEVFusion===================
+[⏰ [NoSt] CopyLidar]: 	0.27238 ms
+[⏰ [NoSt] ImageNrom]: 	55.20729 ms
+[⏰ Lidar Backbone]: 	75.56608 ms
+[⏰ Camera Depth]: 	32.99533 ms
+[⏰ Camera Backbone]: 	51.24483 ms
+[⏰ Camera Bevpool]: 	35.09357 ms
+[⏰ VTransform]: 	1.51251 ms
+[⏰ Transfusion]: 	11.94496 ms
+[⏰ Head BoundingBox]: 	47.04358 ms
+Total: 255.401 ms
+=============================================
+==================BEVFusion===================
+[⏰ [NoSt] CopyLidar]: 	0.43549 ms
+[⏰ [NoSt] ImageNrom]: 	2.35907 ms
+[⏰ Lidar Backbone]: 	6.61094 ms
+[⏰ Camera Depth]: 	0.04710 ms
+[⏰ Camera Backbone]: 	6.23699 ms
+[⏰ Camera Bevpool]: 	0.77293 ms
+[⏰ VTransform]: 	1.43360 ms
+[⏰ Transfusion]: 	4.09376 ms
+[⏰ Head BoundingBox]: 	9.10438 ms
+Total: 28.300 ms
+=============================================
+==================BEVFusion===================
+[⏰ [NoSt] CopyLidar]: 	0.27344 ms
+[⏰ [NoSt] ImageNrom]: 	2.30288 ms
+[⏰ Lidar Backbone]: 	11.07354 ms
+[⏰ Camera Depth]: 	0.07066 ms
+[⏰ Camera Backbone]: 	7.97696 ms
+[⏰ Camera Bevpool]: 	0.96666 ms
+[⏰ VTransform]: 	1.84730 ms
+[⏰ Transfusion]: 	6.99085 ms
+[⏰ Head BoundingBox]: 	8.05581 ms
+Total: 36.982 ms
+=============================================
+==================BEVFusion===================
+[⏰ [NoSt] CopyLidar]: 	0.25062 ms
+[⏰ [NoSt] ImageNrom]: 	2.35274 ms
+[⏰ Lidar Backbone]: 	9.37267 ms
+[⏰ Camera Depth]: 	0.06758 ms
+[⏰ Camera Backbone]: 	10.00141 ms
+[⏰ Camera Bevpool]: 	0.97485 ms
+[⏰ VTransform]: 	1.87290 ms
+[⏰ Transfusion]: 	5.30022 ms
+[⏰ Head BoundingBox]: 	9.30509 ms
+Total: 36.895 ms
+=============================================
+==================BEVFusion===================
+[⏰ [NoSt] CopyLidar]: 	0.27091 ms
+[⏰ [NoSt] ImageNrom]: 	2.25078 ms
+[⏰ Lidar Backbone]: 	12.74480 ms
+[⏰ Camera Depth]: 	0.06963 ms
+[⏰ Camera Backbone]: 	7.78534 ms
+[⏰ Camera Bevpool]: 	0.94515 ms
+[⏰ VTransform]: 	1.83398 ms
+[⏰ Transfusion]: 	5.14355 ms
+[⏰ Head BoundingBox]: 	10.02086 ms
+Total: 38.543 ms
+=============================================
+==================BEVFusion===================
+[⏰ [NoSt] CopyLidar]: 	0.23514 ms
+[⏰ [NoSt] ImageNrom]: 	2.37805 ms
+[⏰ Lidar Backbone]: 	11.12883 ms
+[⏰ Camera Depth]: 	0.07373 ms
+[⏰ Camera Backbone]: 	8.45824 ms
+[⏰ Camera Bevpool]: 	0.98390 ms
+[⏰ VTransform]: 	1.85642 ms
+[⏰ Transfusion]: 	6.66010 ms
+[⏰ Head BoundingBox]: 	9.54573 ms
+Total: 38.707 ms
+=============================================
+Save to build/cuda-bevfusion.jpg
+
