@@ -26,7 +26,6 @@
 
 #include <vector>
 #include <string>
-
 #include "lidar-voxelization.hpp"
 
 namespace bevfusion {
